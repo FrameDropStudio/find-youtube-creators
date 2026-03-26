@@ -1,4 +1,4 @@
-t to # FindYouTubeCreator
+# FindYouTubeCreator
 
 This repository contains a small discovery tool for building a ranked outreach list of YouTube creators who are likely to cover your Steam game.
 
