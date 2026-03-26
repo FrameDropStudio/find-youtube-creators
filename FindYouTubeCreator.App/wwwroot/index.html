@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creator Radar</title>
+  <link rel="stylesheet" href="/app.css?v=20260323e">
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="shell">
+    <section class="hero panel">
+      <div class="hero-toolbar">
+        <div class="hero-copy-block">
+          <div class="eyebrow">Local Outreach Workbench</div>
+          <h1>Find adjacent creators fast.</h1>
+          <p class="hero-copy">
+            Start from a Steam page, widen from similar games, and export a ranked outreach list.
+          </p>
+        </div>
+
+        <div class="hero-tags">
+          <span>Steam similarity</span>
+          <span>Multi-market YouTube search</span>
+          <span>CSV/JSON export</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel controls">
+        <div class="panel-header">
+          <h2>Search Setup</h2>
+          <p>Use your Steam page as the seed and widen the net from similar titles.</p>
+        </div>
+
+        <form id="search-form" class="form-stack">
+          <div class="quick-fields">
+            <label class="field field-span-2">
+              <span>Steam URL or App ID</span>
+              <input id="steam-input" name="steamInput" type="text" placeholder="https://store.steampowered.com/app/4082750/Log_Riders/">
+            </label>
+
+            <label class="field">
+              <span>Game Name Override</span>
+              <input id="game-name" name="gameName" type="text" placeholder="Optional when Steam input is enough">
+            </label>
+
+            <label class="field">
+              <span>YouTube API Key</span>
+              <input id="api-key" name="apiKey" type="password" placeholder="Optional if YOUTUBE_API_KEY is already set locally">
+            </label>
+          </div>
+
+          <section class="panel-subsection">
+            <div class="subsection-heading">
+              <h3>Markets</h3>
+              <p>Run multiple language and region searches in one pass.</p>
+            </div>
+            <div id="markets-grid" class="markets-grid"></div>
+          </section>
+
+          <section class="panel-subsection">
+            <div class="subsection-heading">
+              <h3>Depth</h3>
+              <p>Controls how many similar games and queries are used.</p>
+            </div>
+            <div id="depth-grid" class="depth-grid"></div>
+          </section>
+
+          <div class="field-grid compact-grid">
+            <label class="field">
+              <span>Published Within</span>
+              <div class="inline-input">
+                <input id="published-within" name="publishedWithinMonths" type="number" min="1" max="120" value="24">
+                <span>months</span>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>Min Subscribers</span>
+              <input id="min-subscribers" name="minSubscribers" type="number" min="0" step="100" value="1000">
+            </label>
+
+            <label class="field">
+              <span>Max Subscribers</span>
+              <input id="max-subscribers" name="maxSubscribers" type="number" min="0" step="1000" value="750000">
+            </label>
+          </div>
+
+          <label class="toggle">
+            <input id="require-public-email" name="requirePublicEmail" type="checkbox">
+            <span>Only keep creators with a public email already visible in returned YouTube text</span>
+          </label>
+
+          <details class="advanced-panel">
+            <summary>Advanced targeting</summary>
+
+            <div class="advanced-grid">
+              <label class="field">
+                <span>Extra Search Terms</span>
+                <textarea id="search-terms" name="searchTerms" rows="3" placeholder="co-op platformer&#10;physics platformer&#10;funny multiplayer"></textarea>
+              </label>
+
+              <label class="field">
+                <span>Force Additional Similar Games</span>
+                <textarea id="similar-games" name="similarGames" rows="3" placeholder="Optional extra titles beyond Steam's similarity graph"></textarea>
+              </label>
+
+              <label class="field field-span-2">
+                <span>Exclude Terms</span>
+                <textarea id="exclude-terms" name="excludeTerms" rows="2" placeholder="mobile game&#10;roblox&#10;minecraft"></textarea>
+              </label>
+            </div>
+          </details>
+
+          <div class="action-bar">
+            <button id="run-button" class="primary-button" type="submit">
+              <span class="button-label">Run Creator Search</span>
+              <span class="button-hint">This can take 10-30 seconds depending on depth and quota.</span>
+            </button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="panel results">
+        <div class="panel-header">
+          <h2>Results</h2>
+          <p id="status-text">Ready. Configure the search, then run it.</p>
+        </div>
+
+        <div id="summary-cards" class="summary-cards summary-cards-empty">
+          <div class="empty-state">
+            <h3>No run yet</h3>
+            <p>Your ranked creator list will appear here, along with CSV and JSON downloads.</p>
+          </div>
+        </div>
+
+        <div id="seed-games-block" class="seed-games-block hidden">
+          <div class="subsection-heading">
+            <h3>Steam Similarity Seeds</h3>
+            <p>These titles were used to widen the search.</p>
+          </div>
+          <div id="seed-games" class="chip-cloud"></div>
+        </div>
+
+        <div id="downloads-bar" class="downloads-bar hidden">
+          <a id="download-csv" class="download-link" href="#">Download CSV</a>
+          <a id="download-json" class="download-link secondary" href="#">Download JSON</a>
+          <span id="paths-note" class="paths-note"></span>
+        </div>
+
+        <div id="results-toolbar" class="results-toolbar hidden">
+          <label class="field compact">
+            <span>Filter Leads</span>
+            <input id="results-filter" type="search" placeholder="Search by creator, market, seed game, or email">
+          </label>
+        </div>
+
+        <div id="results-table-shell" class="table-shell hidden">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Creator</th>
+                <th>Score</th>
+                <th>Seed Games</th>
+                <th>Markets</th>
+                <th>Subscribers</th>
+                <th>Email</th>
+                <th>Sample</th>
+              </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <template id="market-template">
+    <label class="market-pill">
+      <input type="checkbox" name="market">
+      <span class="market-pill-text"></span>
+      <small class="market-pill-meta"></small>
+    </label>
+  </template>
+
+  <template id="depth-template">
+    <label class="depth-card">
+      <input type="radio" name="depth">
+      <span class="depth-name"></span>
+      <small class="depth-summary"></small>
+    </label>
+  </template>
+
+  <script src="/app.js?v=20260323e" defer></script>
+</body>
+</html>

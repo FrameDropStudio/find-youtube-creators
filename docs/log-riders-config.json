@@ -1,0 +1,85 @@
+{
+  "steam": {
+    "appId": 4082750,
+    "discoverSimilarGames": true,
+    "similarGameLimit": 12,
+    "tagLimit": 12
+  },
+  "game": {
+    "name": "Log Riders",
+    "searchTerms": [
+      "co-op platformer",
+      "2 player co-op",
+      "physics platformer",
+      "parkour platformer",
+      "ragdoll physics",
+      "funny co-op game",
+      "online co-op",
+      "local co-op"
+    ],
+    "similarGames": [],
+    "excludeTerms": [
+      "mobile game",
+      "roblox",
+      "minecraft"
+    ]
+  },
+  "youtube": {
+    "apiKeyEnvironmentVariable": "YOUTUBE_API_KEY",
+    "maxQueries": 8,
+    "resultsPerQuery": 15,
+    "restrictToGamingCategory": true,
+    "markets": [
+      {
+        "name": "English",
+        "relevanceLanguage": "en",
+        "regionCode": "US",
+        "queryTerms": [ "gameplay", "review", "let's play", "demo", "preview" ]
+      },
+      {
+        "name": "French",
+        "relevanceLanguage": "fr",
+        "regionCode": "FR",
+        "queryTerms": [ "gameplay", "test", "avis", "découverte", "aperçu" ]
+      },
+      {
+        "name": "Chinese",
+        "relevanceLanguage": "zh-CN",
+        "regionCode": "TW",
+        "queryTerms": [ "实况", "评测", "试玩", "游戏演示" ]
+      },
+      {
+        "name": "Japanese",
+        "relevanceLanguage": "ja",
+        "regionCode": "JP",
+        "queryTerms": [ "実況", "レビュー", "プレイ動画", "紹介" ]
+      },
+      {
+        "name": "Brazilian Portuguese",
+        "relevanceLanguage": "pt-BR",
+        "regionCode": "BR",
+        "queryTerms": [ "gameplay", "analise", "análise", "detonado", "review" ]
+      },
+      {
+        "name": "German",
+        "relevanceLanguage": "de",
+        "regionCode": "DE",
+        "queryTerms": [ "gameplay", "lets play", "let's play", "review", "test" ]
+      }
+    ],
+    "publishedWithinMonths": 24,
+    "minSubscribers": 1000,
+    "maxSubscribers": 1000000
+  },
+  "scoring": {
+    "idealMinSubscribers": 5000,
+    "idealMaxSubscribers": 300000,
+    "minimumMatchedVideos": 1,
+    "requirePublicEmail": false
+  },
+  "export": {
+    "outputDirectory": "output",
+    "fileNamePrefix": "log-riders-youtube-creators",
+    "includeTimestampInFileNames": true
+  }
+}

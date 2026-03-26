@@ -1,0 +1,27 @@
+.diversion/
+
+# IDE
+.idea/
+.vs/
+*.DotSettings.user
+
+# Build output
+Build/
+Saved/
+Intermediate/
+DerivedDataCache/
+FindYouTubeCreator.App/bin/
+FindYouTubeCreator.App/obj/
+
+# Local app output and logs
+output/
+*.log
+web-debug.err.log
+web-debug.out.log
+web-verify.err.log
+web-verify.out.log
+
+# OS/editor noise
+.DS_Store
+*~
+*.swp

@@ -1,0 +1,47 @@
+{
+  "steam": {},
+  "game": {
+    "name": "Indie Horror Game",
+    "searchTerms": [
+      "indie horror",
+      "co-op horror"
+    ],
+    "similarGames": [
+      "Lethal Company"
+    ]
+  },
+  "youtube": {
+    "apiKeyEnvironmentVariable": "YOUTUBE_API_KEY",
+    "maxQueries": 3,
+    "resultsPerQuery": 5,
+    "restrictToGamingCategory": true,
+    "markets": [
+      {
+        "name": "English",
+        "relevanceLanguage": "en",
+        "regionCode": "US",
+        "queryTerms": [ "gameplay", "review", "let's play" ]
+      },
+      {
+        "name": "Japanese",
+        "relevanceLanguage": "ja",
+        "regionCode": "JP",
+        "queryTerms": [ "実況", "レビュー", "プレイ動画" ]
+      }
+    ],
+    "publishedWithinMonths": 12,
+    "minSubscribers": 1000,
+    "maxSubscribers": 750000
+  },
+  "scoring": {
+    "idealMinSubscribers": 5000,
+    "idealMaxSubscribers": 250000,
+    "minimumMatchedVideos": 1,
+    "requirePublicEmail": false
+  },
+  "export": {
+    "outputDirectory": "output",
+    "fileNamePrefix": "youtube-creators-test",
+    "includeTimestampInFileNames": true
+  }
+}
